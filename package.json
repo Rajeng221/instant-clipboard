@@ -1,0 +1,7 @@
+{
+  "name": "instant-clipboard-root",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "cd backend && npm run dev"
+  }
+}
