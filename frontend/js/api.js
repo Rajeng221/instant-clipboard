@@ -1,6 +1,6 @@
 // Automatically current host IP detect karega (localhost ya 192.168.x.x)
 const HOSTNAME = window.location.hostname;
-const API_BASE_URL = `http://${HOSTNAME}:5001/api`;
+const API_BASE_URL = '/api'; 
 
 /**
  * Share text or file metadata
