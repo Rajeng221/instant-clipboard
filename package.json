@@ -2,6 +2,7 @@
   "name": "instant-clipboard-root",
   "version": "1.0.0",
   "scripts": {
-    "dev": "cd backend && npm run dev"
+    "dev": "cd backend && npm run dev",
+    "build": "echo 'No build step required for static frontend'"
   }
 }
