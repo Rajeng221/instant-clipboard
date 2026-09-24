@@ -77,12 +77,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
-    .active-tab {
-      background: linear-gradient(135deg, #7c3aed, #4f46e5);
-      color: #ffffff;
+    
+    /* Disable text selection on UI layout */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
-    .inactive-tab {
-      background-color: transparent;
+
+    /* Keep inputs & textareas selectable so users can actually paste */
+    textarea, input, pre {
+      -webkit-user-select: text !important;
+      -moz-user-select: text !important;
+      -ms-user-select: text !important;
+      user-select: text !important;
     }
   </style>
 </head>
@@ -234,14 +243,22 @@
 
     </main>
 
-    <!-- Footer specs & developer attribution -->
-    <footer class="mt-6 text-center text-slate-400 text-[11px] font-medium flex flex-col items-center justify-center gap-1.5">
-      <p>Pop and Paste is developed by <span class="text-slate-600 font-semibold">Raj Patel</span> — A zero-login 6-digit sharing tool.</p>
-      <div class="flex items-center gap-1 text-[10px] text-slate-400">
-        <i data-lucide="zap" class="w-3 h-3 text-amber-500"></i>
-        <span>Sub-millisecond In-Memory Redis • Auto-Expiring TTL • End-to-End Private</span>
-      </div>
-    </footer>
+   
+   <!-- Footer Section -->
+<footer class="mt-8 pb-4 text-center text-slate-500 text-xs flex flex-col items-center justify-center gap-2 select-none">
+  <div class="flex items-center gap-1.5 text-slate-400 text-[11px]">
+    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i>
+    <span>Sub-millisecond In-Memory Redis • Auto-Expiring TTL • End-to-End Private</span>
+  </div>
+
+  <p class="font-medium">
+    Developed by <span class="text-slate-800 font-bold">Raj Patel</span> — Pop and Paste
+  </p>
+
+  <div class="text-[11px] text-slate-400">
+    © 2026 <strong>Pop and Paste</strong>. All Rights Reserved.
+  </div>
+</footer>
   </div>
 
   <!-- JavaScript Scripts -->
@@ -250,6 +267,22 @@
   <script src="js/app.js"></script>
   <script>
     lucide.createIcons();
+  </script>
+  <script>
+    // Right click menu disable
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    // Inspect Element / View Source shortcuts disable
+    document.addEventListener('keydown', (e) => {
+      if (
+        e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
+        (e.metaKey && e.altKey && (e.key === 'i' || e.key === 'j' || e.key === 'c')) || 
+        (e.ctrlKey && e.key === 'u')
+      ) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
