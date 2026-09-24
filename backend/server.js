@@ -10,7 +10,7 @@ const HOST = '0.0.0.0';
 // Sirf local development me app.listen chalega
 if (process.env.NODE_ENV !== 'production') {
   const server = app.listen(PORT, HOST, () => {
-    console.log(`🚀 QuickClip Backend running at:`);
+    console.log(`🚀 Pop and Paste Backend running at:`);
     console.log(`   - Local:   http://localhost:${PORT}`);
     console.log(`   - Network: http://127.0.0.1:${PORT}`);
   });
