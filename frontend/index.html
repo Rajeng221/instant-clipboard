@@ -3,20 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+  <meta name="theme-color" content="#EEF1EA" />
+
   <!-- Primary Meta Tags -->
   <title>Pop and Paste – Instant Cloud Clipboard by Raj Patel</title>
   <meta name="title" content="Pop and Paste – Instant Cloud Clipboard by Raj Patel" />
   <meta name="description" content="Pop and Paste is developed by Raj Patel. This zero-login 6-digit sharing tool lets you instantly pop, copy, and paste text or files across devices with auto-expiring privacy." />
-  
-  <!-- SEO Keywords -->
   <meta name="keywords" content="pop and paste, pop paste, popandpaste, pop and paste online, instant pop and paste, cloud clipboard, cross device paste, 6 digit code clipboard, zero login clipboard, Raj Patel Pop and Paste, Raj Patel developer project" />
   <meta name="author" content="Raj Patel" />
-
-  <!-- Canonical URL -->
   <link rel="canonical" href="https://instant-clipboard-mu.vercel.app/" />
 
-  <!-- Open Graph / Social Media Preview -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://instant-clipboard-mu.vercel.app/" />
   <meta property="og:title" content="Pop and Paste — Developed by Raj Patel" />
@@ -28,246 +25,416 @@
   <meta name="twitter:title" content="Pop and Paste — Zero-Login 6-Digit Sharing Tool" />
   <meta name="twitter:description" content="Pop and Paste is developed by Raj Patel. Zero-login, 6-digit sharing tool to pop and paste across any device." />
 
-  <!-- Schema.org JSON-LD (Search Bots & Gemini AI Reading) -->
+  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Pop and Paste",
-    "alternateName": [
-      "pop and paste",
-      "Pop and Paste Online",
-      "Pop & Paste",
-      "PopPaste",
-      "pop paste",
-      "popandpaste",
-      "Raj Patel Pop and Paste"
-    ],
+    "alternateName": ["pop and paste","Pop and Paste Online","Pop & Paste","PopPaste","pop paste","popandpaste","Raj Patel Pop and Paste"],
     "url": "https://instant-clipboard-mu.vercel.app/",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "All",
     "description": "Pop and Paste is an ephemeral cloud clipboard tool developed by Raj Patel. This zero-login 6-digit sharing tool allows users to transfer text, code snippets, and files securely across devices.",
-    "creator": {
-      "@type": "Person",
-      "name": "Raj Patel",
-      "jobTitle": "Software Developer"
-    },
+    "creator": { "@type": "Person", "name": "Raj Patel", "jobTitle": "Software Developer" },
     "about": {
       "@type": "Thing",
       "name": "Pop and Paste Tool Overview",
       "description": "This tool is developed by Raj Patel. It is a zero-login 6-digit sharing tool designed for instant ephemeral cross-device clipboard sync powered by Upstash Redis."
     },
-    "featureList": [
-      "Zero login required",
-      "6-digit temporary access code",
-      "Cross-device instant paste",
-      "Ephemeral auto-expiring storage",
-      "Burn after reading mode"
-    ]
+    "featureList": ["Zero login required","6-digit temporary access code","Cross-device instant paste","Ephemeral auto-expiring storage","Burn after reading mode"]
   }
   </script>
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  
   <!-- QRCode.js Library CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
-    
-    /* Disable text selection on UI layout */
-    body {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
+    :root {
+      --paper: #EEF1EA;
+      --card: #FBFCF8;
+      --ink: #14201C;
+      --muted: #52625B;
+      --green: #0B5D4B;
+      --orange: #FF8A4C;
+      --yellow: #FFE066;
+      --mint: #CDEBDD;
     }
 
-    /* Keep inputs & textareas selectable so users can actually paste */
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Figtree', system-ui, sans-serif;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(rgba(20,32,28,.13) 1px, transparent 1.2px);
+      background-size: 22px 22px;
+      -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+    }
     textarea, input, pre {
-      -webkit-user-select: text !important;
-      -moz-user-select: text !important;
-      -ms-user-select: text !important;
-      user-select: text !important;
+      -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;
+    }
+    .font-display { font-family: 'Unbounded', 'Figtree', sans-serif; }
+    .font-mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+    /* ---------- Header ---------- */
+    .logo-tile {
+      background: var(--yellow); color: var(--ink);
+      border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+      transform: rotate(-6deg); transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    .logo-tile:hover { transform: rotate(6deg) scale(1.08); }
+    .title-text { letter-spacing: -.04em; line-height: 1; }
+
+    /* One orchestrated page-load moment */
+    .load-in { opacity: 0; transform: translateY(14px); animation: loadIn .6s cubic-bezier(.2,.8,.2,1) forwards; }
+    .load-in.d1 { animation-delay: .05s; } .load-in.d2 { animation-delay: .18s; } .load-in.d3 { animation-delay: .32s; }
+    @keyframes loadIn { to { opacity: 1; transform: none; } }
+
+    /* ---------- Card ---------- */
+    .card {
+      background: var(--card); border: 2px solid var(--ink); border-radius: 20px;
+      box-shadow: 8px 8px 0 var(--ink); padding: 1.25rem;
+    }
+    @media (min-width: 640px) { .card { padding: 1.75rem; } }
+
+    /* ---------- Tabs with sliding block ---------- */
+    .tabs { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; margin-bottom: 1.5rem; background: var(--mint); border: 2px solid var(--ink); border-radius: 14px; }
+    .tabs::before {
+      content: ''; position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px);
+      background: var(--green); border-radius: 9px; border: 2px solid var(--ink);
+      transition: transform .4s cubic-bezier(.65,-.4,.3,1.4), background .25s;
+    }
+    .tabs:has(#tab-receive.active-tab)::before { transform: translateX(100%); background: var(--ink); }
+    .tab-btn { position: relative; z-index: 1; background: transparent !important; box-shadow: none !important; cursor: pointer; transition: color .25s, transform .15s; }
+    .tab-btn:active { transform: scale(.96); }
+    .tab-btn.active-tab { color: #fff !important; }
+    .tab-btn.inactive-tab { color: var(--ink) !important; }
+    .tab-btn.active-tab svg, .tab-btn.active-tab i { animation: tilt .45s ease; }
+    @keyframes tilt { 40% { transform: rotate(-14deg) scale(1.15); } }
+
+    #section-send, #section-receive { animation: sectionIn .4s cubic-bezier(.2,.8,.2,1); }
+    @keyframes sectionIn { from { opacity: 0; transform: translateY(10px); } }
+
+    /* ---------- Fields ---------- */
+    .field-label { display: flex; align-items: center; gap: .4rem; font-size: .85rem; font-weight: 700; color: var(--ink); margin-bottom: .5rem; }
+    #send-text-input, #receive-code-input {
+      background: #fff !important; color: var(--ink) !important; border: 2px solid var(--ink) !important; border-radius: 12px !important;
+      transition: box-shadow .2s, transform .2s;
+    }
+    #send-text-input::placeholder, #receive-code-input::placeholder { color: rgba(82,98,91,.55); }
+    #send-text-input:focus, #receive-code-input:focus { outline: none; transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--green); }
+
+    /* Dropzone with marching dashes */
+    #dropzone {
+      border: 0 !important; background-color: #fff !important; border-radius: 12px;
+      background-image:
+        repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 16px),
+        repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 16px),
+        repeating-linear-gradient(0deg, var(--ink) 0 8px, transparent 8px 16px),
+        repeating-linear-gradient(0deg, var(--ink) 0 8px, transparent 8px 16px);
+      background-size: 100% 2px, 100% 2px, 2px 100%, 2px 100%;
+      background-position: 0 0, 0 100%, 0 0, 100% 0;
+      background-repeat: no-repeat;
+      transition: transform .2s, box-shadow .2s;
+    }
+    #dropzone:hover, #dropzone.drag-over {
+      transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); background-color: var(--yellow) !important;
+      background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+      animation: march 0.8s linear infinite;
+    }
+    @keyframes march { to { background-position: 16px 0, -16px 100%, 0 -16px, 100% 16px; } }
+    #dropzone .icon-bubble { background: var(--mint); color: var(--green); border: 2px solid var(--ink); }
+    #dropzone:hover .icon-bubble, #dropzone.drag-over .icon-bubble { animation: hop .6s ease infinite; }
+    @keyframes hop { 50% { transform: translateY(-6px); } }
+    #file-preview-name { animation: stamp .35s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes stamp { from { transform: scale(1.5) rotate(-6deg); opacity: 0; } }
+
+    /* Burn row */
+    .burn-row { background: #fff; border: 2px solid var(--ink); transition: background .25s, transform .2s, box-shadow .2s; border-radius: 12px; }
+    .burn-row:hover { transform: translate(-2px,-2px); box-shadow: 3px 3px 0 var(--ink); }
+    .burn-row:has(input:checked) { background: var(--yellow); }
+    .burn-row:has(input:checked) .flame { animation: flicker .8s ease-in-out infinite; color: #E5501A; }
+    @keyframes flicker { 0%,100% { transform: scale(1) rotate(-4deg); } 50% { transform: scale(1.3) rotate(5deg); } }
+    #burn-toggle { accent-color: var(--green); }
+
+    /* ---------- Buttons ---------- */
+    .btn { border: 2px solid var(--ink); border-radius: 12px; box-shadow: 4px 4px 0 var(--ink); transition: transform .15s, box-shadow .15s; position: relative; overflow: hidden; }
+    .btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink); }
+    .btn:active { transform: translate(4px,4px); box-shadow: 0 0 0 var(--ink); }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-orange { background: var(--orange); color: var(--ink); }
+    .btn:focus-visible, .tab-btn:focus-visible, #dropzone:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .btn i, .btn svg { transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+    .btn:hover i, .btn:hover svg { transform: rotate(-12deg) scale(1.15); }
+    .btn-loading { pointer-events: none; }
+    .btn-loading i, .btn-loading svg { animation: spin-icon .7s linear infinite !important; }
+    @keyframes spin-icon { to { transform: rotate(360deg); } }
+
+    /* ---------- Code ticket (the memorable moment) ---------- */
+    #code-result-box {
+      background: var(--yellow); border: 2px solid var(--ink); border-radius: 16px; color: var(--ink);
+      box-shadow: 5px 5px 0 var(--ink); position: relative;
+    }
+    #code-result-box:not(.hidden) { animation: ticketIn .6s cubic-bezier(.34,1.4,.5,1); transform-origin: top center; }
+    @keyframes ticketIn { from { opacity: 0; transform: translateY(-16px) rotate(-3deg) scale(.94); } }
+    /* punched notches */
+    #code-result-box::before, #code-result-box::after {
+      content: ''; position: absolute; top: 4.6rem; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--card); border: 2px solid var(--ink);
+    }
+    #code-result-box::before { left: -12px; clip-path: inset(0 0 0 50%); }
+    #code-result-box::after { right: -12px; clip-path: inset(0 50% 0 0); }
+    .code-plate { background: #fff; border: 2px solid var(--ink); border-radius: 12px; }
+    #display-code { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-variant-numeric: tabular-nums; }
+    #display-code.landed { animation: land .45s cubic-bezier(.3,1.7,.5,1); }
+    @keyframes land { 0% { transform: scale(1.22) rotate(-2deg); } 100% { transform: none; } }
+    .ticket-cut { width: 100%; border-top: 2px dashed var(--ink); }
+    #qrcode-container { border: 2px solid var(--ink); animation: qrIn .5s .2s cubic-bezier(.34,1.56,.64,1) both; }
+    @keyframes qrIn { from { opacity: 0; transform: scale(.7) rotate(-6deg); } }
+    #btn-copy-code { transition: transform .15s, background .2s; }
+    #btn-copy-code:hover { background: var(--yellow); }
+    #btn-copy-code:active { transform: scale(.85); }
+    .timer-chip { background: var(--ink); color: #fff; border-radius: 999px; }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ADE80; animation: live 1.6s infinite; }
+    @keyframes live { 0% { box-shadow: 0 0 0 0 rgba(74,222,128,.7); } 70%,100% { box-shadow: 0 0 0 8px rgba(74,222,128,0); } }
+
+    /* ---------- Receive result ---------- */
+    #receive-result-box:not(.hidden) { animation: sectionIn .45s cubic-bezier(.2,.8,.2,1); }
+    #received-text { background: var(--ink) !important; color: #D9F99D !important; border-radius: 12px !important; border: 2px solid var(--ink) !important; }
+    #btn-copy-received { background: var(--mint) !important; color: var(--ink) !important; border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); transition: transform .15s, box-shadow .15s; }
+    #btn-copy-received:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+    #btn-copy-received:active { transform: translate(2px,2px); box-shadow: 0 0 0 var(--ink); }
+    #received-file-link { background: var(--mint) !important; color: var(--ink) !important; border: 2px solid var(--ink) !important; box-shadow: 3px 3px 0 var(--ink); transition: transform .15s, box-shadow .15s; }
+    #received-file-link:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
+    #received-image-container { background: #fff !important; border: 2px solid var(--ink) !important; }
+
+    .muted { color: var(--muted); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+      .load-in { opacity: 1; transform: none; }
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-slate-100 via-indigo-50 to-purple-100 min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 text-slate-800 font-sans">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
 
   <div class="w-full max-w-xl">
-    <!-- Header: Pop and Paste -->
-    <header class="text-center mb-6">
-      <div class="inline-flex items-center gap-2 mb-2">
-        <div class="p-2.5 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-200">
+    <!-- Header -->
+    <header class="text-center mb-8 load-in d1">
+      <div class="inline-flex items-center gap-3 mb-3">
+        <div class="logo-tile p-2.5 rounded-xl">
           <i data-lucide="layers" class="w-6 h-6"></i>
         </div>
-        <h1 class="text-3xl sm:text-4xl font-black bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">Pop and Paste</h1>
+        <h1 class="font-display title-text text-3xl sm:text-4xl font-bold">Pop and Paste</h1>
       </div>
-      <p class="text-slate-600 text-xs sm:text-sm font-medium">Use <strong>Pop and Paste</strong> to instantly drop, pop, and paste text, code, or files between devices via <strong>6-digit key or QR code</strong>.</p>
+      <p class="text-sm sm:text-base max-w-md mx-auto muted">Move text, code, or files between devices with a <strong style="color:var(--ink)">6-digit code</strong> or a QR scan. No account needed.</p>
     </header>
 
     <!-- Main Card -->
-    <main class="bg-white/80 backdrop-blur-xl border border-white/60 shadow-2xl rounded-3xl p-5 sm:p-7 transition-all">
-      
-      <!-- Navigation Tabs -->
-      <nav class="grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-2xl mb-6 border border-slate-200/60" aria-label="Tabs">
-        <button id="tab-send" class="tab-btn active-tab flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all shadow-md">
+    <main class="card load-in d2">
+
+      <!-- Tabs -->
+      <nav class="tabs" aria-label="Tabs">
+        <button id="tab-send" class="tab-btn active-tab flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm">
           <i data-lucide="send" class="w-4 h-4"></i>
           <span>Send / Pop</span>
         </button>
-        <button id="tab-receive" class="tab-btn inactive-tab flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-xs sm:text-sm tracking-wide transition-all text-slate-600 hover:text-slate-900">
+        <button id="tab-receive" class="tab-btn inactive-tab flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm">
           <i data-lucide="download" class="w-4 h-4"></i>
           <span>Receive / Paste</span>
         </button>
       </nav>
 
-      <!-- SECTION 1: SEND / SHARE -->
-      <section id="section-send" class="space-y-4">
+      <!-- SEND -->
+      <section id="section-send" class="space-y-5">
         <div>
-          <div class="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-            <span class="flex items-center gap-1.5"><i data-lucide="align-left" class="w-3.5 h-3.5"></i> Pop and Paste (Text / Code)</span>
-            <span class="text-[10px] text-slate-400 lowercase font-mono">Ctrl+V / Cmd+V anywhere</span>
+          <div class="flex items-center justify-between mb-2">
+            <span class="field-label !mb-0"><i data-lucide="align-left" class="w-4 h-4"></i> Text or code</span>
+            <span class="text-[11px] font-mono muted">Ctrl+V / Cmd+V anywhere</span>
           </div>
-          <textarea id="send-text-input" rows="4" placeholder="Paste link, token, secret, or code snippet here..." class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition resize-none"></textarea>
+          <textarea id="send-text-input" rows="4" placeholder="Paste a link, token, secret, or code snippet here..." class="w-full p-4 text-sm font-mono resize-none"></textarea>
         </div>
 
         <div>
-          <div class="flex items-center text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 gap-1.5">
-            <i data-lucide="paperclip" class="w-3.5 h-3.5"></i>
-            <span>Or Attach Image / File</span>
-          </div>
+          <div class="field-label"><i data-lucide="paperclip" class="w-4 h-4"></i><span>Or attach an image or file</span></div>
           <input type="file" id="file-input" class="hidden" />
-          <div id="dropzone" class="border-2 border-dashed border-slate-200 hover:border-violet-400 bg-slate-50/50 hover:bg-violet-50/30 rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center gap-2">
+          <div id="dropzone" tabindex="0" class="p-6 text-center cursor-pointer flex flex-col items-center justify-center gap-2">
             <div id="file-label" class="flex flex-col items-center gap-2">
-              <div class="p-3 bg-violet-100 text-violet-600 rounded-full">
+              <div class="icon-bubble p-3 rounded-full">
                 <i data-lucide="cloud-upload" class="w-6 h-6"></i>
               </div>
-              <p class="text-xs text-slate-500 font-medium"><span class="text-violet-600 font-bold underline">Click to upload</span> or drag file here</p>
-              <p class="text-[10px] text-slate-400">Supports PNG, JPG, PDF & docs</p>
+              <p class="text-sm font-medium"><span class="font-bold underline" style="color:var(--green)">Click to upload</span> or drag a file here</p>
+              <p class="text-xs muted">PNG, JPG, PDF, and documents</p>
             </div>
-            <div id="file-preview-name" class="hidden flex items-center gap-2 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
-              <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            <div id="file-preview-name" class="hidden flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-lg" style="background:var(--mint); border:2px solid var(--ink)">
+              <i data-lucide="check-circle-2" class="w-4 h-4" style="color:var(--green)"></i>
               <span id="file-preview-text" class="truncate max-w-[200px]">file.png</span>
             </div>
           </div>
         </div>
 
-        <div class="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded-2xl">
-          <div class="flex items-center gap-2.5">
-            <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i>
+        <label class="burn-row flex items-center justify-between p-3.5 cursor-pointer">
+          <div class="flex items-center gap-3">
+            <i data-lucide="flame" class="flame w-5 h-5" style="color:#C2410C"></i>
             <div>
-              <p class="text-xs font-bold text-slate-700">Burn after reading</p>
-              <p class="text-[11px] text-slate-400">Permanently delete immediately after receiver opens it</p>
+              <p class="text-sm font-bold">Burn after reading</p>
+              <p class="text-xs muted">Deletes the moment the receiver opens it</p>
             </div>
           </div>
-          <input type="checkbox" id="burn-toggle" class="w-4 h-4 text-violet-600 rounded focus:ring-violet-500 cursor-pointer" />
-        </div>
+          <input type="checkbox" id="burn-toggle" class="w-5 h-5 cursor-pointer" />
+        </label>
 
-        <button id="btn-generate-code" class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-violet-200 active:scale-[0.99] transition flex items-center justify-center gap-2 text-sm cursor-pointer">
+        <button id="btn-generate-code" class="btn btn-green w-full font-bold py-3.5 flex items-center justify-center gap-2 text-sm cursor-pointer">
           <i data-lucide="sparkles" class="w-5 h-5"></i>
           <span>Generate 6-Digit Pop Code</span>
         </button>
 
-        <div id="code-result-box" class="hidden mt-6 bg-gradient-to-br from-violet-600 via-indigo-600 to-purple-700 p-6 rounded-2xl text-white shadow-xl flex flex-col items-center gap-4">
-          <div class="flex items-center gap-2 text-violet-200 text-xs font-semibold uppercase tracking-wider">
+        <div id="code-result-box" class="hidden p-6 flex flex-col items-center gap-4">
+          <div class="flex items-center gap-2 text-sm font-bold">
             <i data-lucide="key" class="w-4 h-4"></i>
-            <span>Your Pop & Paste Code</span>
+            <span>Your Pop &amp; Paste code</span>
           </div>
 
-          <div class="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 w-full max-w-xs">
-            <span id="display-code" class="text-3xl sm:text-4xl font-black tracking-widest font-mono select-all">000000</span>
-            <button id="btn-copy-code" class="p-2 hover:bg-white/20 rounded-xl transition cursor-pointer" title="Copy code">
-              <i data-lucide="copy" class="w-5 h-5 text-white"></i>
+          <div class="code-plate flex items-center justify-center gap-3 px-5 py-3 w-full max-w-xs">
+            <span id="display-code" class="text-4xl sm:text-5xl tracking-widest select-all">000000</span>
+            <button id="btn-copy-code" class="p-2 rounded-lg cursor-pointer" title="Copy code">
+              <i data-lucide="copy" class="w-5 h-5"></i>
             </button>
           </div>
 
-          <div class="flex flex-col items-center gap-2 mt-1">
-            <div id="qrcode-container" class="bg-white p-3 rounded-2xl shadow-md flex items-center justify-center">
-            </div>
-            <span class="text-[11px] text-violet-200 font-medium">Scan with phone camera to paste instantly</span>
+          <div class="ticket-cut"></div>
+
+          <div class="flex flex-col items-center gap-2">
+            <div id="qrcode-container" class="bg-white p-3 rounded-xl flex items-center justify-center"></div>
+            <span class="text-xs font-semibold">Scan with your phone camera to paste instantly</span>
           </div>
 
-          <div class="flex items-center gap-1.5 text-xs bg-black/20 px-3 py-1.5 rounded-full border border-white/10">
-            <i data-lucide="clock" class="w-3.5 h-3.5 text-violet-300"></i>
-            <span>Auto expires in <strong id="expiry-timer" class="font-mono">10:00</strong> mins</span>
+          <div class="timer-chip flex items-center gap-2 text-xs px-3.5 py-2">
+            <span class="live-dot"></span>
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <span>Expires in <strong id="expiry-timer" class="font-mono">10:00</strong> mins</span>
           </div>
         </div>
       </section>
 
-      <!-- SECTION 2: RECEIVE / RETRIEVE -->
+      <!-- RECEIVE -->
       <section id="section-receive" class="hidden space-y-5">
         <div class="text-center space-y-3">
-          <label for="receive-code-input" class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Enter 6-Digit Code to Paste</label>
-          <input type="text" id="receive-code-input" maxlength="6" placeholder="• • • • • •" class="w-full max-w-xs mx-auto text-center font-mono text-3xl font-black tracking-widest uppercase bg-slate-50 border-2 border-slate-200 focus:border-violet-500 rounded-2xl py-3 px-4 focus:outline-none transition placeholder:text-slate-300 placeholder:font-normal" />
+          <label for="receive-code-input" class="block text-sm font-bold">Enter the 6-digit code</label>
+          <input type="text" id="receive-code-input" maxlength="6" placeholder="• • • • • •" autocomplete="off" class="w-full max-w-xs mx-auto block text-center font-mono text-4xl font-semibold tracking-widest uppercase py-3 px-4" />
         </div>
 
-        <button id="btn-fetch-data" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-emerald-100 active:scale-[0.99] transition flex items-center justify-center gap-2 text-sm cursor-pointer">
+        <button id="btn-fetch-data" class="btn btn-orange w-full font-bold py-3.5 flex items-center justify-center gap-2 text-sm cursor-pointer">
           <i data-lucide="arrow-down-circle" class="w-5 h-5"></i>
-          <span>Retrieve & Paste Content</span>
+          <span>Retrieve &amp; Paste Content</span>
         </button>
 
-        <div id="receive-result-box" class="hidden space-y-4 pt-4 border-t border-slate-100">
+        <div id="receive-result-box" class="hidden space-y-4 pt-5" style="border-top:2px dashed var(--ink)">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-              <i data-lucide="inbox" class="w-3.5 h-3.5"></i> Pasted Payload
-            </span>
-            <button id="btn-copy-received" class="text-xs font-bold text-violet-600 hover:text-violet-700 flex items-center gap-1 bg-violet-50 hover:bg-violet-100 px-2.5 py-1 rounded-lg transition cursor-pointer">
-              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Text
+            <span class="field-label !mb-0"><i data-lucide="inbox" class="w-4 h-4"></i> Pasted payload</span>
+            <button id="btn-copy-received" class="text-xs font-bold flex items-center gap-1 px-3 py-1.5 rounded-lg cursor-pointer">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy text
             </button>
           </div>
 
-          <pre id="received-text" class="p-4 bg-slate-50 rounded-2xl text-xs sm:text-sm font-mono border border-slate-200/80 overflow-x-auto whitespace-pre-wrap select-all text-slate-700 max-h-60"></pre>
+          <pre id="received-text" class="p-4 text-xs sm:text-sm font-mono overflow-x-auto whitespace-pre-wrap select-all max-h-60"></pre>
 
           <div id="received-file-box" class="hidden space-y-3">
-            <div id="received-image-container" class="hidden rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 flex justify-center p-2 max-h-72">
-              <img id="received-image-preview" src="" alt="Shared visual content" class="max-h-64 object-contain rounded-xl shadow-sm" />
+            <div id="received-image-container" class="hidden rounded-xl overflow-hidden flex justify-center p-2 max-h-72">
+              <img id="received-image-preview" src="" alt="Shared visual content" class="max-h-64 object-contain rounded-lg" />
             </div>
-
-            <a id="received-file-link" href="#" target="_blank" download class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-violet-50 text-violet-700 font-semibold border border-violet-200 hover:bg-violet-100 transition shadow-sm text-sm">
+            <a id="received-file-link" href="#" target="_blank" download class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm">
               <i data-lucide="download" class="w-4 h-4"></i>
-              <span id="received-file-name">Download Attached File / Image</span>
+              <span id="received-file-name">Download attached file / image</span>
             </a>
           </div>
         </div>
       </section>
 
       <!-- Machine-readable & AI overview snippet -->
-      <div class="mt-6 pt-4 border-t border-slate-100 text-center">
-        <p class="text-xs text-slate-500 leading-relaxed">
-          <strong>Pop and Paste</strong> is developed by <span class="font-semibold text-slate-700">Raj Patel</span>. This zero-login 6-digit sharing tool lets you quickly pop and paste across any device without an account or history trail.
+      <div class="mt-7 pt-4 text-center" style="border-top:2px dashed rgba(20,32,28,.25)">
+        <p class="text-xs leading-relaxed muted">
+          <strong style="color:var(--ink)">Pop and Paste</strong> is developed by <span class="font-semibold" style="color:var(--ink)">Raj Patel</span>. This zero-login 6-digit sharing tool lets you quickly pop and paste across any device without an account or history trail.
         </p>
       </div>
-
     </main>
 
-   
-   <!-- Footer Section -->
-<footer class="mt-8 pb-4 text-center text-slate-500 text-xs flex flex-col items-center justify-center gap-2 select-none">
-  <div class="flex items-center gap-1.5 text-slate-400 text-[11px]">
-    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i>
-    <span>Sub-millisecond In-Memory Redis • Auto-Expiring TTL • End-to-End Private</span>
+    <!-- Footer -->
+    <footer class="load-in d3 mt-9 pb-4 text-center text-xs flex flex-col items-center justify-center gap-2 select-none">
+      <div class="flex items-center gap-1.5 text-[11px] muted">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5" style="color:var(--green)"></i>
+        <span>In-memory Redis • Auto-expiring TTL • Private by design</span>
+      </div>
+      <p class="font-medium muted">Developed by <span class="font-bold" style="color:var(--ink)">Raj Patel</span> — Pop and Paste</p>
+      <div class="text-[11px] muted">© 2026 <strong>Pop and Paste</strong>. All rights reserved.</div>
+    </footer>
   </div>
 
-  <p class="font-medium">
-    Developed by <span class="text-slate-800 font-bold">Raj Patel</span> — Pop and Paste
-  </p>
-
-  <div class="text-[11px] text-slate-400">
-    © 2026 <strong>Pop and Paste</strong>. All Rights Reserved.
-  </div>
-</footer>
-  </div>
-
-  <!-- JavaScript Scripts -->
+  <!-- Your existing scripts -->
   <script src="js/api.js"></script>
   <script src="js/upload.js"></script>
   <script src="js/app.js"></script>
+  <script>lucide.createIcons();</script>
+
+  <!-- UI motion layer (purely visual; doesn't touch your app logic) -->
   <script>
-    lucide.createIcons();
+    (function () {
+      // Dropzone drag highlight
+      var dz = document.getElementById('dropzone');
+      ['dragenter', 'dragover'].forEach(function (t) {
+        dz.addEventListener(t, function () { dz.classList.add('drag-over'); });
+      });
+      ['dragleave', 'drop'].forEach(function (t) {
+        dz.addEventListener(t, function () { dz.classList.remove('drag-over'); });
+      });
+
+      // Code "slot-machine" roll whenever the code changes
+      var codeEl = document.getElementById('display-code');
+      var busy = false, chars = '0123456789';
+      function roll() {
+        var final = codeEl.textContent;
+        if (busy || !/^\w{6}$/.test(final) || final === '000000') return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        busy = true;
+        var frame = 0, total = 22;
+        var timer = setInterval(function () {
+          frame++;
+          var out = '';
+          for (var i = 0; i < final.length; i++) {
+            out += frame > (i + 1) * 3 + 4 ? final[i] : chars[Math.floor(Math.random() * chars.length)];
+          }
+          codeEl.textContent = out;
+          if (frame >= total) {
+            clearInterval(timer);
+            codeEl.textContent = final;
+            codeEl.classList.remove('landed'); void codeEl.offsetWidth; codeEl.classList.add('landed');
+            setTimeout(function () { busy = false; }, 50);
+          }
+        }, 45);
+      }
+      new MutationObserver(function () { if (!busy) roll(); })
+        .observe(codeEl, { childList: true, characterData: true, subtree: true });
+
+      // Spinning icon on buttons while your async handlers run
+      ['btn-generate-code', 'btn-fetch-data'].forEach(function (id) {
+        var b = document.getElementById(id);
+        b.addEventListener('click', function () {
+          b.classList.add('btn-loading');
+          setTimeout(function () { b.classList.remove('btn-loading'); }, 900);
+        });
+      });
+    })();
   </script>
+
   <script>
     // Right click menu disable
     document.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -275,9 +442,9 @@
     // Inspect Element / View Source shortcuts disable
     document.addEventListener('keydown', (e) => {
       if (
-        e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
-        (e.metaKey && e.altKey && (e.key === 'i' || e.key === 'j' || e.key === 'c')) || 
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+        (e.metaKey && e.altKey && (e.key === 'i' || e.key === 'j' || e.key === 'c')) ||
         (e.ctrlKey && e.key === 'u')
       ) {
         e.preventDefault();
