@@ -6,44 +6,44 @@
   <meta name="theme-color" content="#EEF1EA" />
 
   <!-- Primary Meta Tags -->
-  <title>Pop and Paste – Instant Cloud Clipboard by Raj Patel</title>
+  <title>Popy Paste</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <meta name="title" content="Pop and Paste – Instant Cloud Clipboard by Raj Patel" />
-  <meta name="description" content="Pop and Paste is developed by Raj Patel. This zero-login 6-digit sharing tool lets you instantly pop, copy, and paste text or files across devices with auto-expiring privacy." />
-  <meta name="keywords" content="pop and paste, pop paste, popandpaste, pop and paste online, instant pop and paste, cloud clipboard, cross device paste, 6 digit code clipboard, zero login clipboard, Raj Patel Pop and Paste, Raj Patel developer project" />
+  <meta name="title" content="Popy Paste" />
+  <meta name="description" content="Popy Paste (Popypaste) developed by Raj Patel. Popy paste by Raj lets you instantly pop, copy, and paste text or files across devices using a 6-digit code." />
+  <meta name="keywords" content="popy paste, popypaste, popy paste by raj, popypaste by raj, popy paste online, instant popy paste, cloud clipboard, 6 digit code clipboard, zero login clipboard, Raj Patel popy paste" />
   <meta name="author" content="Raj Patel" />
   <link rel="canonical" href="https://instant-clipboard-mu.vercel.app/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://instant-clipboard-mu.vercel.app/" />
-  <meta property="og:title" content="Pop and Paste — Developed by Raj Patel" />
-  <meta property="og:description" content="Pop and Paste is developed by Raj Patel. A zero-login 6-digit sharing tool to instantly transfer text and files across any screen." />
-  <meta property="og:site_name" content="Pop and Paste" />
+  <meta property="og:title" content="Popy Paste — Developed by Raj Patel" />
+  <meta property="og:description" content="Popy Paste (Popypaste) by Raj. A zero-login 6-digit sharing tool to instantly transfer text and files across any screen." />
+  <meta property="og:site_name" content="Popy Paste" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Pop and Paste — Zero-Login 6-Digit Sharing Tool" />
-  <meta name="twitter:description" content="Pop and Paste is developed by Raj Patel. Zero-login, 6-digit sharing tool to pop and paste across any device." />
+  <meta name="twitter:title" content="Popy Paste — Popypaste by Raj" />
+  <meta name="twitter:description" content="Popy Paste is developed by Raj Patel. Zero-login, 6-digit sharing tool to pop and paste across any device." />
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Pop and Paste",
-    "alternateName": ["pop and paste","Pop and Paste Online","Pop & Paste","PopPaste","pop paste","popandpaste","Raj Patel Pop and Paste"],
+    "name": "Popy Paste",
+    "alternateName": ["popypaste", "popy paste by raj", "popypaste by raj", "Popy Paste Online", "Raj Patel Popy Paste"],
     "url": "https://instant-clipboard-mu.vercel.app/",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "All",
-    "description": "Pop and Paste is an ephemeral cloud clipboard tool developed by Raj Patel. This zero-login 6-digit sharing tool allows users to transfer text, code snippets, and files securely across devices.",
+    "description": "Popy Paste is an ephemeral cloud clipboard tool developed by Raj Patel. Known as popypaste or popy paste by raj, this zero-login 6-digit tool allows users to transfer text and files securely across devices.",
     "creator": { "@type": "Person", "name": "Raj Patel", "jobTitle": "Software Developer" },
     "about": {
       "@type": "Thing",
-      "name": "Pop and Paste Tool Overview",
-      "description": "This tool is developed by Raj Patel. It is a zero-login 6-digit sharing tool designed for instant ephemeral cross-device clipboard sync powered by Upstash Redis."
+      "name": "Popy Paste Tool Overview",
+      "description": "Popy Paste by Raj Patel is designed for instant ephemeral cross-device clipboard sync powered by Upstash Redis."
     },
-    "featureList": ["Zero login required","6-digit temporary access code","Cross-device instant paste","Ephemeral auto-expiring storage","Burn after reading mode"]
+    "featureList": ["Zero login required", "6-digit temporary access code", "Cross-device instant paste", "Ephemeral auto-expiring storage", "Burn after reading mode"]
   }
   </script>
 
@@ -180,14 +180,13 @@
     .btn-loading i, .btn-loading svg { animation: spin-icon .7s linear infinite !important; }
     @keyframes spin-icon { to { transform: rotate(360deg); } }
 
-    /* ---------- Code ticket (the memorable moment) ---------- */
+    /* ---------- Code ticket ---------- */
     #code-result-box {
       background: var(--yellow); border: 2px solid var(--ink); border-radius: 16px; color: var(--ink);
       box-shadow: 5px 5px 0 var(--ink); position: relative;
     }
     #code-result-box:not(.hidden) { animation: ticketIn .6s cubic-bezier(.34,1.4,.5,1); transform-origin: top center; }
     @keyframes ticketIn { from { opacity: 0; transform: translateY(-16px) rotate(-3deg) scale(.94); } }
-    /* punched notches */
     #code-result-box::before, #code-result-box::after {
       content: ''; position: absolute; top: 4.6rem; width: 22px; height: 22px; border-radius: 50%;
       background: var(--card); border: 2px solid var(--ink);
@@ -235,9 +234,9 @@
         <div class="logo-tile p-2.5 rounded-xl">
           <i data-lucide="layers" class="w-6 h-6"></i>
         </div>
-        <h1 class="font-display title-text text-3xl sm:text-4xl font-bold">Pop and Paste</h1>
+        <h1 class="font-display title-text text-3xl sm:text-4xl font-bold">Popy Paste</h1>
       </div>
-      <p class="text-sm sm:text-base max-w-md mx-auto muted">Move text, code, or files between devices with a <strong style="color:var(--ink)">6-digit code</strong> or a QR scan. No account needed.</p>
+      <p class="text-sm sm:text-base max-w-md mx-auto muted">Move text, code, or files between devices with a <strong style="color:var(--ink)">6-digit code</strong> or a QR scan. Zero login required.</p>
     </header>
 
     <!-- Main Card -->
@@ -302,7 +301,7 @@
         <div id="code-result-box" class="hidden p-6 flex flex-col items-center gap-4">
           <div class="flex items-center gap-2 text-sm font-bold">
             <i data-lucide="key" class="w-4 h-4"></i>
-            <span>Your Pop &amp; Paste code</span>
+            <span>Your Popy Paste code</span>
           </div>
 
           <div class="code-plate flex items-center justify-center gap-3 px-5 py-3 w-full max-w-xs">
@@ -364,7 +363,7 @@
       <!-- Machine-readable & AI overview snippet -->
       <div class="mt-7 pt-4 text-center" style="border-top:2px dashed rgba(20,32,28,.25)">
         <p class="text-xs leading-relaxed muted">
-          <strong style="color:var(--ink)">Pop and Paste</strong> is developed by <span class="font-semibold" style="color:var(--ink)">Raj Patel</span>. This zero-login 6-digit sharing tool lets you quickly pop and paste across any device without an account or history trail.
+          <strong style="color:var(--ink)">Popy Paste</strong> (popypaste) is developed by <span class="font-semibold" style="color:var(--ink)">Raj Patel</span>. This tool—often searched as <strong style="color:var(--ink)">popy paste by raj</strong>—lets you transfer clipboard data instantly across screens using a temporary 6-digit pin.
         </p>
       </div>
     </main>
@@ -375,8 +374,8 @@
         <i data-lucide="shield-check" class="w-3.5 h-3.5" style="color:var(--green)"></i>
         <span>In-memory Redis • Auto-expiring TTL • Private by design</span>
       </div>
-      <p class="font-medium muted">Developed by <span class="font-bold" style="color:var(--ink)">Raj Patel</span> — Pop and Paste</p>
-      <div class="text-[11px] muted">© 2026 <strong>Pop and Paste</strong>. All rights reserved.</div>
+      <p class="font-medium muted">Developed by <span class="font-bold" style="color:var(--ink)">Raj Patel</span> — Popy Paste</p>
+      <div class="text-[11px] muted">© 2026 <strong>Popy Paste</strong>. All rights reserved.</div>
     </footer>
   </div>
 
@@ -386,10 +385,9 @@
   <script src="js/app.js"></script>
   <script>lucide.createIcons();</script>
 
-  <!-- UI motion layer (purely visual; doesn't touch your app logic) -->
+  <!-- UI motion layer -->
   <script>
     (function () {
-      // Dropzone drag highlight
       var dz = document.getElementById('dropzone');
       ['dragenter', 'dragover'].forEach(function (t) {
         dz.addEventListener(t, function () { dz.classList.add('drag-over'); });
@@ -398,7 +396,6 @@
         dz.addEventListener(t, function () { dz.classList.remove('drag-over'); });
       });
 
-      // Code "slot-machine" roll whenever the code changes
       var codeEl = document.getElementById('display-code');
       var busy = false, chars = '0123456789';
       function roll() {
@@ -425,7 +422,6 @@
       new MutationObserver(function () { if (!busy) roll(); })
         .observe(codeEl, { childList: true, characterData: true, subtree: true });
 
-      // Spinning icon on buttons while your async handlers run
       ['btn-generate-code', 'btn-fetch-data'].forEach(function (id) {
         var b = document.getElementById(id);
         b.addEventListener('click', function () {
